@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geladinho Gourmet de Pudim | Artesanal & Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-light: #5BB8F5;
+    --blue-mid: #3AA0E8;
+    --blue-deep: #1A7DC4;
+    --cream: #FDF6EC;
+    --cream-dark: #F5ECD8;
+    --gold: #3d74bb;
+    --gold-light: #2e67e2;
+    --caramel: #2b61c4;
+    --white: #FFFFFF;
+    --text-dark: #1A1A2E;
+    --text-mid: #4A4A6A;
+    --text-light: #8A8AAA;
+    --glass: rgba(255,255,255,0.65);
+    --glass-border: rgba(255,255,255,0.45);
+    --shadow-soft: 0 8px 32px rgba(91,184,245,0.12);
+    --shadow-medium: 0 16px 48px rgba(26,125,196,0.18);
+    --shadow-gold: 0 8px 32px rgba(67, 118, 212, 0.2);
+    --radius: 20px;
+    --radius-lg: 32px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ===== LOADING SCREEN ===== */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(135deg, #fff9f2 0%, #e8f4fd 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-pudim {
+    font-size: 4rem; animation: loaderBounce 0.8s ease infinite alternate;
+  }
+  .loader-bar {
+    width: 160px; height: 3px; background: var(--cream-dark);
+    border-radius: 99px; overflow: hidden; margin-top: 24px;
+  }
+  .loader-bar-fill {
+    height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--blue-light), var(--gold));
+    border-radius: 99px; animation: loadFill 1.4s ease forwards;
+  }
+  @keyframes loadFill { to { width: 100%; } }
+  @keyframes loaderBounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #e8f4fd 0%, #f7f3ed 40%, #fdf6ec 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 24px 60px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(91,184,245,0.18) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(212,168,67,0.12) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+
+  /* Floating blobs */
+  .blob {
+    position: absolute; border-radius: 50%; pointer-events: none; opacity: 0.5;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob-1 { width: 300px; height: 300px; top: 10%; left: 5%; background: rgba(91,184,245,0.08); animation-delay: 0s; }
+  .blob-2 { width: 200px; height: 200px; top: 60%; right: 8%; background: rgba(212,168,67,0.1); animation-delay: 3s; }
+  .blob-3 { width: 150px; height: 150px; top: 30%; right: 20%; background: rgba(91,184,245,0.06); animation-delay: 5s; }
+  @keyframes blobFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,-20px) scale(1.05); }
+  }
+
+  .hero-container {
+    max-width: 1100px; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    position: relative; z-index: 2;
+  }
+
+  .hero-content { animation: slideInLeft 0.9s cubic-bezier(0.22,1,0.36,1) both; }
+  .hero-image-wrap { animation: slideInRight 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
+
+  @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px); border-radius: 99px;
+    padding: 8px 18px; font-size: 0.78rem; font-weight: 600;
+    color: var(--blue-deep); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 24px; box-shadow: var(--shadow-soft);
+  }
+  .hero-badge span { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+
+  .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800; line-height: 1.15;
+    color: var(--text-dark); margin-bottom: 18px;
+  }
+  .hero-title .highlight {
+    background: linear-gradient(135deg, var(--blue-mid), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-mid); line-height: 1.7;
+    margin-bottom: 36px; max-width: 440px;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #31b963 0%, #1da851 100%);
+    color: #fff; font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    padding: 18px 36px; border-radius: 99px; border: none;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    border-radius: inherit;
+  }
+  .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 40px rgba(37,211,102,0.45); }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 36px;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-num {
+    font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--text-light); letter-spacing: 0.04em; }
+
+  /* Hero image */
+  .hero-image-wrap {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-image-bg {
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,184,245,0.15) 0%, rgba(212,168,67,0.08) 60%, transparent 80%);
+    position: absolute;
+    animation: rotateSlow 20s linear infinite;
+  }
+  @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .hero-emoji-main {
+    font-size: clamp(7rem, 18vw, 12rem);
+    filter: drop-shadow(0 20px 40px rgba(212,168,67,0.3));
+    animation: pudimFloat 4s ease-in-out infinite;
+    position: relative; z-index: 2;
+  }
+  @keyframes pudimFloat {
+    0%,100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-18px) rotate(3deg); }
+  }
+
+  .floating-badge {
+    position: absolute; background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px); border-radius: var(--radius);
+    padding: 12px 18px; box-shadow: var(--shadow-medium);
+    animation: badgeFloat 3s ease-in-out infinite;
+  }
+  .fb-1 { top: 10%; left: -20px; animation-delay: 0.5s; }
+  .fb-2 { bottom: 15%; right: -10px; animation-delay: 1.5s; }
+  .fb-3 { top: 50%; left: -30px; animation-delay: 1s; }
+  @keyframes badgeFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .fb-label { font-size: 0.72rem; color: var(--text-light); font-weight: 500; }
+  .fb-value { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-dark); }
+  .stars-small { color: var(--gold); font-size: 0.75rem; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 24px;
+    transition: all 0.3s ease;
+  }
+  nav.scrolled {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(54, 98, 245, 0.952);
+    box-shadow: 0 4px 20px rgba(91, 183, 245, 0.507);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 800;
+    color: var(--text-dark);
+  }
+  .nav-logo span { color: var(--blue-mid); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--blue-light), var(--blue-deep));
+    color: #fff; font-family: 'Poppins', sans-serif; font-size: 0.85rem;
+    font-weight: 600; padding: 10px 22px; border-radius: 99px; border: none;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(91,184,245,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,184,245,0.4); }
+
+  /* ===== SECTION STYLES ===== */
+  section { padding: 80px 24px; }
+  .section-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800; line-height: 1.2; color: var(--text-dark); margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--text-mid); line-height: 1.7; max-width: 540px;
+  }
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto; }
+
+  /* ===== BENEFITS ===== */
+  .benefits { background: #fff; }
+  .benefits-grid {
+    max-width: 1100px; margin: 56px auto 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;
+  }
+  .benefit-card {
+    background: linear-gradient(145deg, #fff, var(--cream));
+    border: 1px solid rgba(91,184,245,0.12);
+    border-radius: var(--radius-lg); padding: 36px 24px;
+    text-align: center; transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .benefit-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-light), var(--gold));
+    transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;
+  }
+  .benefit-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-medium); }
+  .benefit-card:hover::before { transform: scaleX(1); }
+  .benefit-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+  .benefit-name {
+    font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 8px;
+  }
+  .benefit-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
+  /* ======= ESCASSEZ ======*/
+  .scarcity-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(37,99,235,0.1), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .scarcity-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--neon);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .scarcity-count {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .scarcity-count .num { color: var(--neon); }
+  .scarcity-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 32px;
+  }
+  .progress-wrap {
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .progress-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #2563eb, #38bdf8);
+    box-shadow: 0 0 12px rgba(56,189,248,0.6);
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+    width: 40%;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== ORDER SECTION ===== */
+  .order-section {
+    background: linear-gradient(145deg, var(--cream) 0%, #e8f4fd 100%);
+  }
+  .order-card {
+    max-width: 560px; margin: 56px auto 0;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px); border-radius: var(--radius-lg);
+    padding: 48px 40px; box-shadow: var(--shadow-medium);
+    position: relative; overflow: hidden;
+  }
+  .order-card::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(91,184,245,0.12), transparent);
+    border-radius: 50%;
+  }
+
+  .product-display {
+    display: flex; align-items: center; gap: 20px; margin-bottom: 36px;
+    background: rgba(255,255,255,0.7); border-radius: var(--radius);
+    padding: 20px 24px; border: 1px solid rgba(91,184,245,0.1);
+  }
+  .product-emoji { font-size: 3rem; }
+  .product-info { flex: 1; }
+  .product-name { font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text-dark); }
+  .product-price-unit { font-size: 0.88rem; color: var(--text-mid); margin-top: 4px; }
+  .product-price-unit strong { color: var(--caramel); font-weight: 700; }
+  .product-badge-mini {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #fff; font-size: 0.7rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 99px; letter-spacing: 0.06em;
+  }
+
+  .quantity-label {
+    font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 600;
+    color: var(--text-mid); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .quantity-wrap {
+    display: flex; align-items: center; justify-content: center; gap: 0;
+    background: rgba(255,255,255,0.8); border: 2px solid rgba(91,184,245,0.2);
+    border-radius: 99px; overflow: hidden; width: fit-content; margin: 0 auto 32px;
+  }
+  .qty-btn {
+    width: 56px; height: 56px; border: none; background: transparent;
+    font-size: 1.5rem; font-weight: 700; color: var(--blue-mid);
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--blue-light); color: #fff; }
+  .qty-btn:active { transform: scale(0.9); }
+  .qty-display {
+    min-width: 80px; text-align: center;
+    font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 800;
+    color: var(--text-dark);
+  }
+
+  .total-display {
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue-deep) 100%);
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 28px;
+    text-align: center; color: #fff;
+  }
+  .total-label { font-size: 0.85rem; font-weight: 500; opacity: 0.85; margin-bottom: 6px; }
+  .total-value {
+    font-family: 'Poppins', sans-serif; font-size: 2.2rem; font-weight: 900;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .total-value.bounce { animation: valueBounce 0.3s ease; }
+  @keyframes valueBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+
+  .btn-order {
+    width: 100%; padding: 20px; border: none; border-radius: 99px;
+    background: linear-gradient(135deg, #34b664, #1da851);
+    color: #fff; font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-order:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(30, 167, 80, 0.781); }
+
+  /* ── CONTAGEM ── */
+  .countdown-section {
+    background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(2,6,23,0));
+    border-top: 1px solid rgba(37,99,235,0.12);
+    border-bottom: 1px solid rgba(37,99,235,0.12);
+    padding: 80px 24px;
+  }
+  .countdown-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .countdown-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.7);
+  }
+  .countdown-subtitle {
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 40px;
+  }
+  .countdown-digits {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .countdown-unit {
+    text-align: center;
+  }
+  .countdown-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 9vw, 5.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    display: block;
+    min-width: 3ch;
+    text-align: center;
+  }
+  .countdown-label-text {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-top: 4px;
+  }
+  .countdown-sep {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 9vw, 5.5rem);
+    color: rgba(37,99,235,0.3);
+    line-height: 1;
+    margin-top: 0;
+    padding-bottom: 22px;
+    display: flex;
+    align-items: flex-end;
+  }
+ 
+  /* ── FIDELIDADE (FUTURE) ── */
+  .fidelidade-section { opacity: 0.7; }
+  .level-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .level-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .level-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .level-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .level-desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.4;
+  }
+  .level-soon {
+    position: absolute;
+    top: -8px; right: -8px;
+    background: rgba(37,99,235,0.9);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+    color: white;
+  }
+
+  /* ===== REVIEWS ===== */
+  .reviews { background: #fff; }
+  .reviews-grid {
+    max-width: 1100px; margin: 56px auto 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+  }
+  .review-card {
+    background: linear-gradient(145deg, var(--cream), #fff);
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: var(--radius-lg); padding: 32px 28px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .review-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-gold); }
+  .review-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .review-text { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-light), var(--blue-mid));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+  .review-name { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-dark); }
+  .review-location { font-size: 0.78rem; color: var(--text-light); }
+  .review-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(37,211,102,0.1); color: #1da851;
+    font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 99px;
+    margin-top: 4px; letter-spacing: 0.06em;
+  }
+
+  /* ===== FAQ ===== */
+  .faq { background: linear-gradient(145deg, var(--cream), #e8f4fd); }
+  .faq-list { max-width: 700px; margin: 56px auto 0; display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s;
+  }
+  .faq-item:hover { box-shadow: var(--shadow-medium); }
+  .faq-q {
+    width: 100%; background: transparent; border: none;
+    padding: 22px 28px; display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; cursor: pointer; text-align: left;
+  }
+  .faq-q-text {
+    font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
+    color: var(--text-dark);
+  }
+  .faq-icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-light), var(--blue-mid));
+    color: #fff; font-size: 1.2rem; font-weight: 300;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.3s, background 0.3s;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: linear-gradient(135deg, var(--caramel), var(--gold)); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 28px;
+  }
+  .faq-a-inner { padding-bottom: 22px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+  .faq-item.open .faq-a { max-height: 200px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: linear-gradient(135deg, var(--text-dark), #0f1124);
+    color: rgba(255,255,255,0.8); padding: 60px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px; padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand { }
+  .footer-logo {
+    font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800;
+    color: #fff; margin-bottom: 12px;
+  }
+  .footer-logo span { color: var(--blue-light); }
+  .footer-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  .footer-col-title {
+    font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--blue-light); }
+
+  .social-links { display: flex; gap: 12px; margin-top: 8px; }
+  .social-link {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7); font-size: 1.1rem; text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .social-link:hover { background: var(--blue-mid); color: #fff; transform: translateY(-3px); }
+
+  .footer-bottom {
+    margin-top: 32px; text-align: center;
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== FLOATING WHATSAPP ===== */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 500;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, #38be69, #1da851);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.45);
+    text-decoration: none; color: #fff; font-size: 1.8rem;
+    animation: waPulse 2.5s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+  .whatsapp-float:hover { transform: scale(1.12); animation: none; box-shadow: 0 12px 40px rgba(37,211,102,0.6); }
+  @keyframes waPulse {
+    0%,100% { box-shadow: 0 8px 32px rgba(37,211,102,0.45); }
+    50% { box-shadow: 0 8px 48px rgba(37,211,102,0.7), 0 0 0 14px rgba(37,211,102,0.1); }
+  }
+  .whatsapp-float::before {
+    content: ''; position: absolute; inset: -8px; border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.3); animation: waRing 2.5s ease-in-out infinite;
+  }
+  @keyframes waRing {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0; transform: scale(1.4); }
+  }
+
+  /* ===== SEPARATOR ===== */
+  .wavy-sep {
+    width: 100%; overflow: hidden; line-height: 0; margin-top: -1px;
+  }
+  .wavy-sep svg { display: block; }
+
+  /* ===== ANIMATIONS ON SCROLL ===== */
+  .reveal {
+    opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    .hero-content { order: 2; }
+    .hero-image-wrap { order: 1; }
+    .hero-sub { margin: 0 auto 36px; }
+    .hero-stats { justify-content: center; }
+    .fb-1 { display: none; }
+    .fb-2 { right: 10px; bottom: 0; }
+    .fb-3 { left: 0; }
+    .order-card { padding: 32px 24px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-emoji-main { font-size: 8rem; }
+    nav { padding: 12px 16px; }
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.4); }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-pudim">🍮</div>
+  <p style="font-family:'Poppins',sans-serif;font-size:0.9rem;color:#0d0c297e;margin-top:16px;font-weight:500;">Preparando algo delicioso...</p>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">Doce<span>Momento</span>💍</div>
+    <a href="#order" class="nav-cta">Encomendar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span></span> Goiânia / Ap. de Goiânia
+      </div>
+      <h1 class="hero-title">
+        Geladinho<br>Gourmet de<br><span class="highlight">Pudim</span>
+      </h1>
+      <p class="hero-sub">
+        Cremoso, artesanal e irresistível. Feito com ingredientes selecionados, cada mordida é uma sobremesa completa.
+      </p>
+      <a href="#order" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.845L0 24l6.303-1.507A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.882 0-3.65-.494-5.185-1.357l-.372-.22-3.742.894.932-3.638-.241-.387A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Pedir Agora no WhatsApp
+      </a>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Clientes felizes</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">5★</span>
+          <span class="stat-label">Avaliação média</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Artesanal</span>
+        </div>
+      </div>
+    </div>
+
+    <!----div class="hero-image-wrap">
+      <div class="hero-image-bg"></div>
+      <div class="hero-emoji-main">🍮</div>
+      <div class="floating-badge fb-1">
+        <div class="fb-label">Ingredientes</div>
+        <div class="fb-value">Selecionados ✨</div>
+      </div>
+      <div class="floating-badge fb-2">
+        <div class="stars-small">★★★★★</div>
+        <div class="fb-value">"Simplesmente perfeito!"</div>
+      </div>
+      <div class="floating-badge fb-3">
+        <div class="fb-label">Cada geladinho</div>
+        <div class="fb-value">R$ 3,00</div>
+      </div>
+    </div>-->
+  </div>
+</section>
+
+<!-- WAVY SEPARATOR -->
+<div class="wavy-sep" style="background:#eaeef836">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60"><path fill="#fdf6ec" fill-opacity="1" d="M0,32L48,37.3C96,43,192,53,288,53.3C384,53,480,43,576,37.3C672,32,768,32,864,37.3C960,43,1056,53,1152,53.3C1248,53,1344,43,1392,37.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+</div>
+
+<!--ESCASSEZ-->
+<section>
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-label">⚡ Escassez real</div>
+    <h2 class="section-title" style="margin:0 auto 8px;">Unidades da semana</h2>
+    <p class="section-sub" style="margin:0 auto 40px;">Apenas 30 unidades por produção. Sem exceções.</p>
+    <div class="scarcity-card reveal">
+      <div class="scarcity-label">❄️ PRODUÇÃO DESTA SEMANA</div>
+      <div class="scarcity-count">Restam apenas <span class="num" id="units-left">18</span> unidades</div>
+      <div class="scarcity-desc">de 30 produzidas nesta semana</div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="progress-labels">
+        <span>0 reservadas</span>
+        <span id="reserved-label">12 reservadas</span>
+      </div>
+      <div class="soldout-msg" id="soldout-msg">
+        🚫 Produção encerrada — aguarde a próxima semana
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="section-label reveal">Por que nosso geladinho?</div>
+    <h2 class="section-title reveal">Feito com <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">amor e qualidade</span></h2>
+    <p class=>Cada geladinho é preparado artesanalmente para garantir o máximo de sabor e cremosidade em cada mordida.</p>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal reveal-delay-1">
+      <span class="benefit-icon">🥛</span>
+      <div class="benefit-name">Ultra Cremoso</div>
+      <div class="benefit-desc">Textura aveludada que derrete na boca, com consistência perfeita do início ao fim.</div>
+    </div>
+    <div class="benefit-card reveal reveal-delay-2">
+      <span class="benefit-icon">✨</span>
+      <div class="benefit-name">Sabor Intenso</div>
+      <div class="benefit-desc">Sabor autêntico de pudim caseiro, concentrado e irresistível em cada mordida.</div>
+    </div>
+    <div class="benefit-card reveal reveal-delay-3">
+      <span class="benefit-icon">🤲</span>
+      <div class="benefit-name">100% Artesanal</div>
+      <div class="benefit-desc">Preparado à mão com receita exclusiva.</div>
+    </div>
+    <div class="benefit-card reveal reveal-delay-4">
+      <span class="benefit-icon">🌟</span>
+      <div class="benefit-name">Ingredientes Premium</div>
+      <div class="benefit-desc">Selecionamos os melhores insumos para garantir qualidade gourmet em cada unidade.</div>
+    </div>
+    <div class="benefit-card reveal reveal-delay-5">
+      <span class="benefit-icon">🍮</span>
+      <div class="benefit-name">Sobremesa Perfeita</div>
+      <div class="benefit-desc">Ideal para festas, eventos, ou simplesmente para adoçar o seu dia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-section">
+  <div class="countdown-wrap reveal">
+    <div class="countdown-title">Próxima produção em</div>
+    <div class="countdown-subtitle">Reserve agora antes que esgote</div>
+    <div class="countdown-digits">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">00</span>
+        <div class="countdown-label-text">dias</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">00</span>
+        <div class="countdown-label-text">horas</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">00</span>
+        <div class="countdown-label-text">min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ORDER SECTION -->
+<section class="order-section" id="order">
+</div>
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="section-label reveal">Monte seu pedido</div>
+    <h2 class="section-title reveal">Quantos você <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">quer hoje?</span></h2>
+    <p class=>Escolha a quantidade e envie seu pedido diretamente pelo WhatsApp.</p>
+  </div>
+  <div class="order-card reveal">
+    <div class="product-display">
+      <div class="product-info">
+        <div class="product-name">Geladinho Gourmet de Pudim</div>
+        <div class="product-price-unit">Valor unitário: <strong>R$ 3,00</strong></div>
+      </div>
+      <div class="product-badge-mini">PREMIUM</div>
+    </div>
+
+    <div class="quantity-label" style="text-align:center">Quantidade</div>
+    <div class="quantity-wrap">
+      <button class="qty-btn" id="decreaseBtn" onclick="changeQty(-1)">−</button>
+      <div class="qty-display" id="qtyDisplay">10</div>
+      <button class="qty-btn" id="increaseBtn" onclick="changeQty(1)">+</button>
+    </div>
+
+    <div class="total-display">
+      <div class="total-label">Total do Pedido</div>
+      <div class="total-value" id="totalDisplay">R$ 30,00</div>
+    </div>
+
+    <button class="btn-order" onclick="openWhatsApp()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.845L0 24l6.303-1.507A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.882 0-3.65-.494-5.185-1.357l-.372-.22-3.742.894.932-3.638-.241-.387A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Encomendar via WhatsApp
+    </button>
+    <p style="text-align:center;font-size:0.78rem;color:var(--text-light);margin-top:14px">
+      🔒 Pedido seguro • Confirmação imediata
+    </p>
+  </div>
+</section>
+
+<!--FIDELIDADE-->
+<section class="fidelidade-section">
+  <div class="section-inner">
+    <div class="section-label">🏆 Em breve</div>
+    <h2 class="section-title">Programa de fidelidade</h2>
+    <p class="section-sub">Acumule pontos, suba de nível e ganhe benefícios exclusivos.</p>
+    <div class="level-cards">
+      <div class="level-card reveal">
+        <div class="level-icon">🌱</div>
+        <div class="level-name">Iniciante</div>
+        <div class="level-desc">Primeiras reservas — bem-vindo ao mundo ICE DROP</div>
+        <span class="level-soon">Em breve</span>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-icon">❄️</div>
+        <div class="level-name">Frost</div>
+        <div class="level-desc">Desconto progressivo e acesso prioritário</div>
+        <span class="level-soon">Em breve</span>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-icon">🌀</div>
+        <div class="level-name">Blizzard</div>
+        <div class="level-desc">Reserva garantida antes de abrir ao público</div>
+        <span class="level-soon">Em breve</span>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-icon">👑</div>
+        <div class="level-name">Supreme</div>
+        <div class="level-desc">Vip exclusivo — sabores secretos e brindes especiais</div>
+        <span class="level-soon">Em breve</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="section-label reveal">Depoimentos</div>
+    <h2 class="section-title reveal">Amado por quem <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">já experimentou</span></h2>
+    <p class=>Veja o que nossos clientes dizem sobre o Geladinho Gourmet de Pudim.</p>
+  </div>
+  <div class="reviews-grid" style="max-width:1100px;margin:56px auto 0">
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Melhor geladinho gourmet que já experimentei! A cremosidade é incrível, parece um pudim congelado de luxo."</p>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div>
+          <div class="review-name">Ana Claudia M.</div>
+          <div class="review-location">Goiânia, GO</div>
+          <div class="review-badge">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="review-card reveal reveal-delay-3">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Produto de altíssima qualidade! O sabor é idêntico ao de um bom pudim caseiro. Entrega rápida e embalagem impecável. Já sou fã!"</p>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#B8F5E0,#1da851)">M</div>
+        <div>
+          <div class="review-name">Marcos F.</div>
+          <div class="review-location">Goiânia, GO</div>
+          <div class="review-badge">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-4">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Meus filhos simplesmente amam! Peço sempre.Um geladinho que realmente tem sabor diferenciado."</p>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#F5BBE0,#C4308A)">C</div>
+        <div>
+          <div class="review-name">Camila R.</div>
+          <div class="review-location">Goiânia, GO</div>
+          <div class="review-badge">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-5">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Qualidade gourmet de verdade, não tem comparação com os geladinhos comuns."</p>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#F5E8BB,#C47B2B)">R</div>
+        <div>
+          <div class="review-name">Renata L.</div>
+          <div class="review-location">Goiânia, GO</div>
+          <div class="review-badge">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Produto impecável! O sabor é sofisticado e o preço é justo. Parabéns pela qualidade!"</p>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#BBD8F5,#1A7DC4)">P</div>
+        <div>
+          <div class="review-name">Patricia O.</div>
+          <div class="review-location">Goiânia, GO</div>
+          <div class="review-badge">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="section-label reveal">Dúvidas frequentes</div>
+    <h2 class="section-title reveal">Perguntas <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">frequentes</span></h2>
+    <p class=>Tudo que você precisa saber antes de fazer seu pedido.</p>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">🚗 Vocês fazem entrega?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Enviamos apenas com aplicativo de entrega como 99 ou Uber, entrega paga pelo cliente.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">⏰ Qual o prazo para meu pedido ficar pronto?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Nossos geladinhos são feitos artesanalmente aos finais de semana! Por isso encomende o seu o quanto antes para não ficar sem.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-3">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">❄️ Como devo conservar os geladinhos?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Os geladinhos devem ser mantidos no freezer e duram até 30 dias congelados. Para consumir, retire do freezer 3 a 5 minutos antes para atingir a textura ideal — cremosa e irresistível.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-4">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">📦 Tem pedido mínimo?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Nosso pedido mínimo é de 1 unidade. Dessa forma você consegue aproveitar esse sabor gastando pouco!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Doce<span>Momento</span> 💍</div>
+        <p class="footer-tagline">Geladinhos gourmet artesanais feitos com ingredientes premium. Sabor que encanta, qualidade que fideliza.</p>
+        <div class="social-links" style="margin-top:20px">
+          <a href="https://www.instagram.com/doce.momento_go/" class="social-link" title="Instagram">📸</a>
+          <a href="" class="social-link" title="WhatsApp" onclick="openWhatsApp()">💬</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-links">
+          <li><a href="#home">Início</a></li>
+          <li><a href="#benefits">Benefícios</a></li>
+          <li><a href="#order">Encomendar</a></li>
+          <li><a href="#reviews">Avaliações</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <ul class="footer-links">
+          <li><a href="#">📍 Goiânia, GO <br> Aparecida de Goiânia</a></li>
+          <li><a href="#" onclick="openWhatsApp()">💬 WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/doce.momento_go/">📸 @doce.momento_go</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 DoceMomento. Todos os direitos reservados. Desenvolvido por João Lucas</p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="#" class="whatsapp-float" onclick="openWhatsApp()" title="Fazer pedido no WhatsApp">
+  💬
+</a>
+
+<script>
+ 
+ // CONTADOR ESTOQUE
+ let estoque = 30;
+
+function atualizarEstoque() {
+
+  let vendidos = 30 - estoque;
+
+  let porcentagem = (vendidos / 30) * 100;
+
+  document.getElementById("contador").innerText =
+    `${estoque} unidades`;
+
+  document.getElementById("progresso").style.width =
+    `${porcentagem}%`;
+}
+  // === LOADER ===
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1600);
+  });
+
+  // === NAV SCROLL ===
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // === ORDER LOGIC ===
+  let qty = 10;
+  const pricePerUnit = 3.00;
+
+  function updateDisplay() {
+    document.getElementById('qtyDisplay').textContent = qty;
+    const total = (qty * pricePerUnit).toFixed(2).replace('.', ',');
+    const totalEl = document.getElementById('totalDisplay');
+    totalEl.textContent = `R$ ${total}`;
+    totalEl.classList.remove('bounce');
+    void totalEl.offsetWidth; // reflow
+    totalEl.classList.add('bounce');
+  }
+
+  function changeQty(delta) {
+    qty = Math.max(1, qty + delta);
+    updateDisplay();
+  }
+
+  // === WHATSAPP ===
+  function openWhatsApp() {
+    const phone = '62991548183'; // replace with real number
+    const msg = encodeURIComponent(`Olá! Quero encomendar ${qty} geladinhos gourmet de pudim\n\nTotal: R$ ${(qty * pricePerUnit).toFixed(2).replace('.', ',')}`);
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  }
+
+  // === FAQ ACCORDION ===
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+
+    // Open clicked if was closed
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // === SCROLL REVEAL ===
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
