@@ -87,18 +87,7 @@
   }
 
   /* Floating blobs */
-  .blob {
-    position: absolute; border-radius: 50%; pointer-events: none; opacity: 0.5;
-    animation: blobFloat 8s ease-in-out infinite;
-  }
-  .blob-1 { width: 300px; height: 300px; top: 10%; left: 5%; background: rgba(91,184,245,0.08); animation-delay: 0s; }
-  .blob-2 { width: 200px; height: 200px; top: 60%; right: 8%; background: rgba(212,168,67,0.1); animation-delay: 3s; }
-  .blob-3 { width: 150px; height: 150px; top: 30%; right: 20%; background: rgba(91,184,245,0.06); animation-delay: 5s; }
-  @keyframes blobFloat {
-    0%,100% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(20px,-20px) scale(1.05); }
-  }
-
+  
   .hero-container {
     max-width: 1100px; width: 100%;
     display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
@@ -190,6 +179,17 @@
     0%,100% { transform: translateY(0) rotate(-3deg); }
     50% { transform: translateY(-18px) rotate(3deg); }
   }
+
+        .hero-image {
+      width: 700px;
+      max-width: 100%;
+      position: relative;
+      z-index: 2;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow: 0 20px 60px rgba(57, 132, 230, 0.37);
+      animation: pudimFloat 6s ease-in infinite;
+}
 
   .floating-badge {
     position: absolute; background: var(--glass); border: 1px solid var(--glass-border);
@@ -283,7 +283,7 @@
   }
   .benefit-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
 
-  /* ======= ESCASSEZ ======*/
+  /* ======= ESCASSEZ ======
   .scarcity-card {
     background: var(--glass);
     border: 1px solid var(--glass-border);
@@ -338,6 +338,16 @@
     font-size: 0.75rem;
     color: rgba(255,255,255,0.3);
   }
+
+  .soldout-msg {
+  display: none;
+  margin-top: 20px;
+  color: #ff4d4d;
+  font-weight: 700;
+  font-size: 0.95rem;
+} 
+=== */
+
 
   /* ===== ORDER SECTION ===== */
   .order-section {
@@ -426,73 +436,74 @@
   .btn-order:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(30, 167, 80, 0.781); }
 
   /* ── CONTAGEM ── */
-  .countdown-section {
-    background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(2,6,23,0));
-    border-top: 1px solid rgba(37,99,235,0.12);
-    border-bottom: 1px solid rgba(37,99,235,0.12);
-    padding: 80px 24px;
-  }
-  .countdown-wrap {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .countdown-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-    color: rgba(255,255,255,0.7);
-  }
-  .countdown-subtitle {
-    font-size: 0.84rem;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 40px;
-  }
-  .countdown-digits {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .countdown-unit {
-    text-align: center;
-  }
-  .countdown-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(2.8rem, 9vw, 5.5rem);
-    letter-spacing: -0.04em;
-    line-height: 1;
-    background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
-    display: block;
-    min-width: 3ch;
-    text-align: center;
-  }
-  .countdown-label-text {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-top: 4px;
-  }
-  .countdown-sep {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(2.8rem, 9vw, 5.5rem);
-    color: rgba(37,99,235,0.3);
-    line-height: 1;
-    margin-top: 0;
-    padding-bottom: 22px;
-    display: flex;
-    align-items: flex-end;
-  }
+.countdown-section {
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 50%, #fdf6ec 100%);
+  border-top: 1px solid rgba(91,184,245,0.2);
+  border-bottom: 1px solid rgba(91,184,245,0.2);
+  padding: 80px 24px;
+}
+.countdown-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.countdown-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.countdown-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  margin-bottom: 48px;
+  letter-spacing: 0.04em;
+}
+.countdown-digits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.countdown-unit {
+  text-align: center;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius);
+  padding: 24px 32px;
+  box-shadow: var(--shadow-soft);
+  min-width: 100px;
+}
+.countdown-num {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  line-height: 1;
+  background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+.countdown-label-text {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 8px;
+  font-weight: 600;
+}
+.countdown-sep {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--blue-light);
+  line-height: 1;
+  margin-bottom: 28px;
+}
  
   /* ── FIDELIDADE (FUTURE) ── */
   .fidelidade-section { opacity: 0.7; }
@@ -614,7 +625,7 @@
     gap: 40px; padding-bottom: 40px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
-  .footer-brand { }
+ 
   .footer-logo {
     font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800;
     color: #fff; margin-bottom: 12px;
@@ -736,9 +747,8 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
+  
+
 
   <div class="hero-container">
     <div class="hero-content">
@@ -771,23 +781,14 @@
       </div>
     </div>
 
-    <!----div class="hero-image-wrap">
-      <div class="hero-image-bg"></div>
-      <div class="hero-emoji-main">🍮</div>
-      <div class="floating-badge fb-1">
-        <div class="fb-label">Ingredientes</div>
-        <div class="fb-value">Selecionados ✨</div>
-      </div>
-      <div class="floating-badge fb-2">
-        <div class="stars-small">★★★★★</div>
-        <div class="fb-value">"Simplesmente perfeito!"</div>
-      </div>
-      <div class="floating-badge fb-3">
-        <div class="fb-label">Cada geladinho</div>
-        <div class="fb-value">R$ 3,00</div>
-      </div>
-    </div>-->
-  </div>
+   <div class="hero-image-wrap">
+  <div class="hero-image-bg"></div>
+
+  <img src="assets/pudim.png"
+    alt="Geladinho Gourmet de Pudim"
+    class="hero-image">
+   </div>
+
 </section>
 
 <!-- WAVY SEPARATOR -->
@@ -795,36 +796,37 @@
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60"><path fill="#fdf6ec" fill-opacity="1" d="M0,32L48,37.3C96,43,192,53,288,53.3C384,53,480,43,576,37.3C672,32,768,32,864,37.3C960,43,1056,53,1152,53.3C1248,53,1344,43,1392,37.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
 </div>
 
-<!--ESCASSEZ-->
+<!--ESCASSEZ--
+
+
 <section>
   <div class="section-inner" style="text-align:center;">
     <div class="section-label">⚡ Escassez real</div>
-    <h2 class="section-title" style="margin:0 auto 8px;">Unidades da semana</h2>
-    <p class="section-sub" style="margin:0 auto 40px;">Apenas 30 unidades por produção. Sem exceções.</p>
+    <h2 class="section-title" style="margin:0 auto 8px;">quantidade da semana</h2>
+    <p class="section-sub" style="margin:0 auto 40px;">Apenas 30 quantidade por produção. Sem exceções.</p>
     <div class="scarcity-card reveal">
       <div class="scarcity-label">❄️ PRODUÇÃO DESTA SEMANA</div>
-      <div class="scarcity-count">Restam apenas <span class="num" id="units-left">18</span> unidades</div>
-      <div class="scarcity-desc">de 30 produzidas nesta semana</div>
+      <div class="scarcity-count">Restam apenas <span class="num" id="units-left">60</span> unidades</div>
+      <div class="--text-dark">de 60 produzidas nesta semana</div>
       <div class="progress-wrap">
         <div class="progress-bar" id="progress-bar"></div>
       </div>
-      <div class="progress-labels">
-        <span>0 reservadas</span>
-        <span id="reserved-label">12 reservadas</span>
-      </div>
       <div class="soldout-msg" id="soldout-msg">
-        🚫 Produção encerrada — aguarde a próxima semana
+        🔥 Essa produção esgotou!
+
+Entre agora na lista prioritária da próxima remessa.
       </div>
     </div>
   </div>
 </section>
+-->
 
 <!-- BENEFITS -->
 <section class="benefits" id="benefits">
   <div style="max-width:1100px;margin:0 auto;text-align:center">
     <div class="section-label reveal">Por que nosso geladinho?</div>
     <h2 class="section-title reveal">Feito com <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">amor e qualidade</span></h2>
-    <p class=>Cada geladinho é preparado artesanalmente para garantir o máximo de sabor e cremosidade em cada mordida.</p>
+    <p class="selection-sub" style="margin:0 auto 40px">Cada geladinho é preparado artesanalmente para garantir o máximo de sabor e cremosidade em cada mordida.</p>
   </div>
   <div class="benefits-grid">
     <div class="benefit-card reveal reveal-delay-1">
@@ -845,7 +847,7 @@
     <div class="benefit-card reveal reveal-delay-4">
       <span class="benefit-icon">🌟</span>
       <div class="benefit-name">Ingredientes Premium</div>
-      <div class="benefit-desc">Selecionamos os melhores insumos para garantir qualidade gourmet em cada unidade.</div>
+      <div class="benefit-desc">Selecionamos os melhores insumos para garantir qualidade gourmet em cada quantidade.</div>
     </div>
     <div class="benefit-card reveal reveal-delay-5">
       <span class="benefit-icon">🍮</span>
@@ -858,8 +860,9 @@
 <!-- COUNTDOWN -->
 <div class="countdown-section">
   <div class="countdown-wrap reveal">
+    <div class="section-label">⏳ Produção limitada</div>
     <div class="countdown-title">Próxima produção em</div>
-    <div class="countdown-subtitle">Reserve agora antes que esgote</div>
+    <div class="countdown-subtitle">Reserve agora antes que esgote • Apenas 60 unidades por semana</div>
     <div class="countdown-digits">
       <div class="countdown-unit">
         <span class="countdown-num" id="cd-days">00</span>
@@ -873,7 +876,7 @@
       <div class="countdown-sep">:</div>
       <div class="countdown-unit">
         <span class="countdown-num" id="cd-mins">00</span>
-        <div class="countdown-label-text">min</div>
+        <div class="countdown-label-text">minutos</div>
       </div>
     </div>
   </div>
@@ -883,31 +886,46 @@
 
 <!-- ORDER SECTION -->
 <section class="order-section" id="order">
-</div>
   <div style="max-width:1100px;margin:0 auto;text-align:center">
     <div class="section-label reveal">Monte seu pedido</div>
     <h2 class="section-title reveal">Quantos você <span style="background:linear-gradient(135deg,#5BB8F5,#175bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">quer hoje?</span></h2>
-    <p class=>Escolha a quantidade e envie seu pedido diretamente pelo WhatsApp.</p>
+    <p class="selection-sub" style="margin:0 auto 40px">Escolha a quantidade e envie seu pedido diretamente pelo WhatsApp.</p>
   </div>
   <div class="order-card reveal">
     <div class="product-display">
       <div class="product-info">
         <div class="product-name">Geladinho Gourmet de Pudim</div>
-        <div class="product-price-unit">Valor unitário: <strong>R$ 3,00</strong></div>
+        <div class="product-price-unit">Valor unitário: <strong>R$ 5,00</strong></div>
       </div>
       <div class="product-badge-mini">PREMIUM</div>
     </div>
 
+    <div class="progress-wrap" style="margin-bottom:12px">
+  <div class="progress-bar" id="barra" style="width:100%"></div>
+</div>
+
+<p id="texto-estoque"></p>
+
+<div id="area-compra">
+
+  
+
+</div>
+
+
+
     <div class="quantity-label" style="text-align:center">Quantidade</div>
     <div class="quantity-wrap">
       <button class="qty-btn" id="decreaseBtn" onclick="changeQty(-1)">−</button>
-      <div class="qty-display" id="qtyDisplay">10</div>
+      <div class="qty-display" id="qtyDisplay">1</div>
       <button class="qty-btn" id="increaseBtn" onclick="changeQty(1)">+</button>
     </div>
 
+  
+
     <div class="total-display">
       <div class="total-label">Total do Pedido</div>
-      <div class="total-value" id="totalDisplay">R$ 30,00</div>
+      <div class="total-value" id="totalDisplay">R$ 5,00</div>
     </div>
 
     <button class="btn-order" onclick="openWhatsApp()">
@@ -920,7 +938,7 @@
   </div>
 </section>
 
-<!--FIDELIDADE-->
+<!--FIDELIDADE--
 <section class="fidelidade-section">
   <div class="section-inner">
     <div class="section-label">🏆 Em breve</div>
@@ -954,8 +972,9 @@
     </div>
   </div>
 </section>
+FIDELIADE-->
 
-<!-- REVIEWS -->
+<!--REVIEWS-->
 <section class="reviews" id="reviews">
   <div style="max-width:1100px;margin:0 auto;text-align:center">
     <div class="section-label reveal">Depoimentos</div>
@@ -1072,7 +1091,7 @@
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-a">
-        <div class="faq-a-inner">Nosso pedido mínimo é de 1 unidade. Dessa forma você consegue aproveitar esse sabor gastando pouco!</div>
+        <div class="faq-a-inner">Nosso pedido mínimo é de 1 quantidade. Dessa forma você consegue aproveitar esse sabor gastando pouco!</div>
       </div>
     </div>
   </div>
@@ -1123,23 +1142,91 @@
   💬
 </a>
 
+
+
+
 <script>
  
- // CONTADOR ESTOQUE
- let estoque = 30;
+ // ===== ESTOQUE AUTOMÁTICO =====
 
-function atualizarEstoque() {
+const ESTOQUE_TOTAL = 60;
 
-  let vendidos = 30 - estoque;
+// pega estoque salvo ou cria inicial
+let estoque = 60
 
-  let porcentagem = (vendidos / 30) * 100;
-
-  document.getElementById("contador").innerText =
-    `${estoque} unidades`;
-
-  document.getElementById("progresso").style.width =
-    `${porcentagem}%`;
+if(!estoque){
+  estoque = 60;
+  localStorage.setItem("estoque", 60);
+}else{
+  estoque = parseInt(estoque);
 }
+
+
+
+// atualiza interface
+function atualizarEstoqueUI() {
+  var btn = document.querySelector(".btn-order");
+  if (estoque > 0) {
+    btn.innerHTML = "💬 Encomendar via WhatsApp";
+    btn.style.background = "linear-gradient(135deg, #34b664, #1da851)";
+    btn.style.boxShadow = "0 8px 32px rgba(37,211,102,0.4)";
+  } else {
+    btn.innerHTML = "🔔 Reservar próxima remessa";
+    btn.style.background = "linear-gradient(135deg, #2563eb, #38bdf8)";
+    btn.style.boxShadow = "0 8px 32px rgba(37,99,235,0.4)";
+  }
+}
+
+ function comprar(qtd){
+
+  if(qtd > estoque){
+
+    alert(
+      "Quantidade indisponível"
+    );
+
+    return;
+  }
+
+  estoque -= qtd;
+
+  localStorage.setItem(
+    "estoque",
+    estoque
+  );
+
+  atualizarBarra();
+
+  const mensagem =
+`Olá, quero comprar ${qtd} geladinhos`;
+
+  const numero =
+"62991548183";
+
+  const url =
+`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+
+
+
+}
+
+
+function reservar() {
+  var numero = "62991548183";
+  var mensagem = encodeURIComponent("Olá, quero entrar na lista da próxima remessa de Geladinho Gourmet de Pudim.");
+  window.open("https://wa.me/" + numero + "?text=" + mensagem, "_blank");
+  setTimeout(function() {
+    alert(
+      "Reserva enviada!\n\n" +
+      "CHAVE PIX (copia e cola no seu banco):\n\n" +
+      "00020126500014BR.GOV.BCB.PIX0111104151311970213Pix geladinho5204000053039865802BR5924JOAO LUCAS PEREIRA SOUSA6007GOIANIA622605224GFnhEAyAk5vf5rE10wIwv63045916"
+    );
+  }, 800);
+}
+
+function verificarEstoque() {}
+
   // === LOADER ===
   window.addEventListener('load', () => {
     setTimeout(() => {
@@ -1154,12 +1241,17 @@ function atualizarEstoque() {
   });
 
   // === ORDER LOGIC ===
-  let qty = 10;
-  const pricePerUnit = 3.00;
+  let qty = 1;
+  const pricePerUnit = 5.00;
 
   function updateDisplay() {
     document.getElementById('qtyDisplay').textContent = qty;
-    const total = (qty * pricePerUnit).toFixed(2).replace('.', ',');
+    let total = qty * pricePerUnit;
+
+if(qty >= 5){
+  total = qty * 4;
+}
+    total = total.toFixed(2).replace('.', ',');
     const totalEl = document.getElementById('totalDisplay');
     totalEl.textContent = `R$ ${total}`;
     totalEl.classList.remove('bounce');
@@ -1168,16 +1260,110 @@ function atualizarEstoque() {
   }
 
   function changeQty(delta) {
+  if (estoque <= 0) {
     qty = Math.max(1, qty + delta);
-    updateDisplay();
+  } else {
+    qty = Math.min(estoque, Math.max(1, qty + delta));
+  }
+  updateDisplay();
+}
+
+ async function openWhatsApp() {
+
+  const phone = '62991548183';
+
+  // ===== ESTOQUE ESGOTADO =====
+  if (estoque <= 0) {
+
+   var total = qty * 4;
+total = total.toFixed(2).replace(".", ",");
+const reservaMsg = encodeURIComponent(
+  "Olá! 🍮\n\nQuero reservar " + qty + " geladinhos gourmet de pudim na PRÓXIMA produção.\n\nValor estimado: R$ " + total
+);
+   
+    
+
+
+    window.open(
+      `https://wa.me/${phone}?text=${reservaMsg}`,
+      '_blank'
+    );
+
+    setTimeout(() => {
+      alert(
+        "✅ Reserva enviada pelo WhatsApp!\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━\n" +
+        "💳 CHAVE PIX (copia e cola):\n\n" +
+        "00020126500014BR.GOV.BCB.PIX0111104151311970213Pix geladinho5204000053039865802BR5924JOAO LUCAS PEREIRA SOUSA6007GOIANIA622605224GFnhEAyAk5vf5rE10wIwv63045916\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━\n" +
+        "Copie a chave acima e cole no seu banco para pagar."
+      );
+    }, 800);
+    return;
+
   }
 
-  // === WHATSAPP ===
-  function openWhatsApp() {
-    const phone = '62991548183'; // replace with real number
-    const msg = encodeURIComponent(`Olá! Quero encomendar ${qty} geladinhos gourmet de pudim\n\nTotal: R$ ${(qty * pricePerUnit).toFixed(2).replace('.', ',')}`);
-    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  // ===== ESTOQUE INSUFICIENTE =====
+  if (qty > estoque) {
+
+    alert(`Restam apenas ${estoque} quantidade disponíveis.`);
+
+    return;
   }
+
+  // ===== DIMINUI ESTOQUE =====
+
+// DEPOIS:
+// Desconta estoque
+estoque -= qty;
+localStorage.setItem("estoque", estoque);
+atualizarBarra();
+atualizarEstoqueUI();
+verificarEstoque();
+
+// Monta mensagem
+var total = qty * pricePerUnit;
+if (qty >= 5) { total = qty * 4; }
+total = total.toFixed(2).replace(".", ",");
+const msg = encodeURIComponent(
+`Olá! 🍮
+
+Quero encomendar ${qty} geladinhos gourmet de pudim.
+
+Total: R$ ${total}`
+);
+
+// Abre WhatsApp
+window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+
+// Mostra PIX na tela
+setTimeout(() => {
+  alert(
+    "✅ Pedido enviado pelo WhatsApp!\n\n" +
+    "━━━━━━━━━━━━━━━━━━━━\n" +
+    "💳 CHAVE PIX (copia e cola):\n\n" +
+    "00020126500014BR.GOV.BCB.PIX0111104151311970213Pix geladinho5204000053039865802BR5924JOAO LUCAS PEREIRA SOUSA6007GOIANIA622605224GFnhEAyAk5vf5rE10wIwv63045916\n\n" +
+    "━━━━━━━━━━━━━━━━━━━━\n" +
+    "Copie a chave acima e cole no seu banco para pagar."
+  );
+}, 800);
+}
+
+function atualizarBarra(){
+
+  const porcentagem =
+    (estoque / 30) * 100;
+
+  document.getElementById(
+    "barra"
+  ).style.width = porcentagem + "%";
+
+  document.getElementById(
+    "texto-estoque"
+  ).innerText =
+    estoque + " disponíveis";
+}
+
 
   // === FAQ ACCORDION ===
   function toggleFaq(btn) {
@@ -1203,6 +1389,56 @@ function atualizarEstoque() {
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
   revealEls.forEach(el => observer.observe(el));
+
+  function atualizarCountdown() {
+
+  const agora = new Date();
+
+  const proximoDomingo = new Date();
+
+  proximoDomingo.setDate(
+    agora.getDate() +
+    ((7 - agora.getDay()) % 7 || 7)
+  );
+
+  proximoDomingo.setHours(10, 0, 0, 0);
+
+  const diferenca =
+    proximoDomingo - agora;
+
+  const dias =
+    Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+  const horas =
+    Math.floor(
+      (diferenca / (1000 * 60 * 60)) % 24
+    );
+
+  const mins =
+    Math.floor(
+      (diferenca / (1000 * 60)) % 60
+    );
+
+  document.getElementById("cd-days").textContent =
+    String(dias).padStart(2, '0');
+
+  document.getElementById("cd-hours").textContent =
+    String(horas).padStart(2, '0');
+
+  document.getElementById("cd-mins").textContent =
+    String(mins).padStart(2, '0');
+}
+
+atualizarCountdown();    
+setInterval(atualizarCountdown, 1000);
+
+
+
+atualizarBarra();
+verificarEstoque();
+atualizarEstoqueUI();
+
 </script>
+
 </body>
 </html>
